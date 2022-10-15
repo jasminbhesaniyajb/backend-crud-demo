@@ -1,0 +1,158 @@
+openapi: 3.0.0
+swagger: 2.0
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in HTML.
+  version: 0.1.9
+servers:
+  - url: http://localhost:3000
+
+definitions: 
+  Products:
+    properties:
+      name: 
+        type: string
+      image: 
+        type: string
+      categorie: 
+        type: string
+      price: 
+        type: number
+      status: 
+        type: boolean
+
+  User:
+    properties:
+      userName: 
+        type: string
+      email: 
+        type: string
+      phoneNumber: 
+        type: string
+      password: 
+        type: string
+
+paths:
+  /api/products:
+    get:
+      tags:
+        - Product
+      summary: Returns a list of products.
+      description: Get product list.
+      responses:
+        '200':    # status code
+          description: A JSON array of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Products'
+
+  /api/create-product:
+    post:
+      tags:
+        - Product
+      summary: Add new product.
+      requestBody:
+        description: Create a new product
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Products'
+      responses:
+        '200':    # status code
+          description: Product added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Products'
+              
+  /api/update-product/{id}:
+    put:
+      tags:
+        - Product
+      summary: Update product.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Products'
+      responses:
+        '200':    # status code
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Products'
+
+  /api/delete-product/{id}:
+    delete:
+      tags:
+        - Product
+      summary: Delete product.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Product Deleted successfully
+
+
+  /user/users:
+    get:
+      tags:
+        - User
+      summary: Returns a list of users.
+      description: Get users list.
+      responses:
+        '200':    # status code
+          description: A JSON array of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Products'
+
+  /user/signup:
+    post:
+      tags:
+        - User
+      summary: Add new user.
+      requestBody:
+        description: Create a new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/User'
+      responses:
+        '200':    # status code
+          description: user added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/User'
+
+  /user/login:
+    post:
+      tags:
+        - User
+      summary: login user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email: 
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':    # status code
+          description: user login successfully
